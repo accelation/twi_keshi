@@ -4,7 +4,7 @@ import os
 import sys
 import json
 
-config = config.ConfigParser()
+config = configparser.ConfigParser()
 config.read("config.ini")
 token = config["token"]
 
@@ -26,11 +26,11 @@ if os.path.exists("./cnt.txt"):
 twitter = OAuth1Session(CK, CS, AT, AS)
 del_url = "https://api.twitter.com/1.1/statuses/destroy/{}.json"
 cnt = 0
-for i in range(start, start+TWI_NUM):
+for i in range(start, start+DEL_NUM):
     twitter.post(del_url.format(twi_list[i]["id"]))
     cnt += 1
 
 print("全部で{}件ツイートを削除しました。".format(cnt))
 
 with open("cnt.txt", "w") as f:
-    f.write(str(start+TWI_NUM))
+    f.write(str(start+DEL_NUM))
